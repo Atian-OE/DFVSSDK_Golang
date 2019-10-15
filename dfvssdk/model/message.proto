@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+//protoc --go_out=. dfvssdk/model/message.proto
+
+package model;
+
+
+enum MsgID{
+    ConnectID=0;
+    DisconnectID=1;
+    AlarmNotifyID=2;
+    FiberStateNotifyID=3;
+
+
+    HeartBeatID=250;
+}
+
+
+
+
+
+//防区状态
+enum FiberState{
+    None=0;//光纤正常
+    NoFiber=1;//光纤拔出
+    Break=2;//光纤断裂
+    TooLong=3;//光纤过长
+}
+
+//设备
+message FiberStateNotify{
+    int32 ChannelID=1;
+    string DeviceID=2;
+    int64 Timestamp=3;
+    FiberState State=4;
+    float ChannelLength=5;
+}
+
+//警报事件
+message AlarmEvent{
+    int32 id=1;
+    string name=2;//样本名称
+    int32 max_intensity=3;//最大强度
+    float max_intensity_match=4;//最大强度
+    int32 area=5;//面积
+    float area_match=6;//面积
+    float event_width=7;//事件宽度
+    float event_width_match=8;//事件宽度
+    float keep_time_duty_ratio=9;//持续时间 占空比
+    float keep_time_duty_ratio_match=10;//持续时间 占空比
+    float std_deviation_x=11;//x轴标准差
+    float std_deviation_x_match=12;//x轴标准差
+    float intensity_generate_ratio=13;//强度生成速率
+    float intensity_generate_ratio_match=14;//强度生成速率
+    int64 event_start_time=15;//事件起始时间
+    int64 event_keep_time=16;//持续时间
+
+    float event_centre=17;//事件中心
+    int32 match_level=18;//匹配级别
+    float match_ratio=19;//匹配率
+}
+
+//警报事件通知
+message AlarmEventNotify{
+   int32 ChannelID=1;
+   string DeviceID=2;
+   int64 Timestamp=3;
+   repeated AlarmEvent Alarms=4;
+}
+
+
+
+//心跳
+message HeartBeat{
+
+}
