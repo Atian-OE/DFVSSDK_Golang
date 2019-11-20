@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/Atian-OE/DTSSDK_Golang/dfvssdk"
-	"github.com/Atian-OE/DTSSDK_Golang/dfvssdk/model"
+	"github.com/Atian-OE/DFVSSDK_Golang/dfvssdk"
+	"github.com/Atian-OE/DFVSSDK_Golang/dfvssdk/model"
 	"os"
 	"os/signal"
 	"syscall"
@@ -18,7 +18,7 @@ fmt.Println(time.Now())
 	signal.Notify(ch, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
 	fmt.Println("start")
 
-	client:= dtssdk.NewDTSClient("192.168.0.37")
+	client:= dfvssdk.NewDFVSClient("192.168.0.95")
 
 	client.CallConnected(func(addr string) {
 		fmt.Println(fmt.Sprintf("连接成功:%s!",addr))
@@ -28,43 +28,20 @@ fmt.Println(time.Now())
 	})
 	time.Sleep(time.Second*3)
 
-	rep1,err:= client.GetDeviceID()
-	fmt.Println(err)
-	fmt.Println(rep1)
-
-	rep2,err:= client.GetDefenceZone(1,"")
-	fmt.Println(err)
-	fmt.Println("GetDefenceZone",rep2,err)
-
-	rep3,err:= client.CancelSound()
-	fmt.Println(err)
-	fmt.Println("CancelSound",rep3,err)
-
-	rep4,err:= client.ResetAlarm()
-	fmt.Println(err)
-	fmt.Println("ResetAlarm",rep4,err)
 
 
-	err= client.CallZoneTempNotify(func(notify *model.ZoneTempNotify, e error) {
-		fmt.Println("CallZoneTempNotify"+notify.DeviceID)
+	err:= client.CallAlarmNotify(func(notify *model.AlarmEventNotify, e error) {
+		fmt.Println("CallAlarmNotify"+notify.DeviceID)
 	})
-	fmt.Println("CallZoneTempNotify",err)
+	fmt.Println("CallAlarmNotify",err)
 
 
-	err= client.CallTempSignalNotify(func(notify *model.TempSignalNotify, e error) {
-		fmt.Println("CallTempSignalNotify"+notify.DeviceID)
+	err= client.CallFiberStatusNotify(func(notify *model.FiberStateNotify, e error) {
+		fmt.Println("CallFiberStatusNotify"+notify.DeviceID)
 	})
-	fmt.Println("CallTempSignalNotify",err)
+	fmt.Println("CallFiberStatusNotify",err)
 
-	err= client.CallDeviceEventNotify(func(notify *model.DeviceEventNotify, e error) {
-		fmt.Println("CallDeviceEventNotify"+notify.DeviceID)
-	})
-	fmt.Println("CallDeviceEventNotify",err)
 
-	err= client.CallZoneAlarmNotify(func(notify *model.ZoneAlarmNotify, e error) {
-		fmt.Println("CallZoneAlarmNotify"+notify.DeviceID)
-	})
-	fmt.Println("CallZoneAlarmNotify",err)
 
 
 

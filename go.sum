@@ -1,3 +1,5 @@
+github.com/Atian-OE/DTSSDK_Golang v0.0.0-20191011034155-cc7ea7cbb127 h1:VM/bCoFGAYeay1J8plR1V9pBRDuFRzSMqH+sF+WHQik=
+github.com/Atian-OE/DTSSDK_Golang v0.0.0-20191011034155-cc7ea7cbb127/go.mod h1:8xT1YbZb7OKyPX8+pyin34shZLk0v234J72n7UhJ538=
 github.com/golang/protobuf v1.3.2 h1:6nsPYzhq5kReh6QImI3k5qWzO4PEbvbIW2cwSfR/6xs=
 github.com/golang/protobuf v1.3.2/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/iris-contrib/go.uuid v2.0.0+incompatible h1:XZubAYg61/JwnJNbZilGjf3b3pB80+OQg2qf6c8BfWE=
