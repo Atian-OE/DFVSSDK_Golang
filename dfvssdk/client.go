@@ -2,10 +2,10 @@ package dfvssdk
 
 import (
 	"bytes"
+	"encoding/binary"
 	"fmt"
 	"github.com/Atian-OE/DFVSSDK_Golang/dfvssdk/codec"
 	"github.com/Atian-OE/DFVSSDK_Golang/dfvssdk/model"
-	"github.com/Atian-OE/DFVSSDK_Golang/dfvssdk/utils"
 	"github.com/kataras/iris/core/errors"
 	"net"
 	"time"
@@ -148,15 +148,20 @@ func (self *DFVSSDKClient)client_handle(conn net.Conn)  {
 
 // true 处理完成 false 循环继续处理
 func (self *DFVSSDKClient)unpack(cache *bytes.Buffer,conn net.Conn) bool {
+
 	if(cache.Len()<5){
 		return true
 	}
 	buf:=cache.Bytes()
-	pkg_size:= utils.ByteToInt2(buf[:4])
+	pkg_size:=int(binary.LittleEndian.Uint32(buf[:4]))
+	//pkg_size:= utils.ByteToInt2(buf[:4])
+
 	//长度不够
-	if(pkg_size > len(buf)-5){
+	if pkg_size > len(buf)-5 {
 		return true
 	}
+
+
 
 	cmd:=buf[4]
 	self.tcp_handle(model.MsgID(cmd),buf[:pkg_size+5],conn)

@@ -94,6 +94,7 @@ func IntToBytes(n int64,b byte) ([]byte,error) {
 
 //byte转换为int
 func ByteToInt2(b []byte) int{
+
 	mask:=0xff;
 	temp:=0;
 	n:=0;
