@@ -34,6 +34,7 @@ message FiberStateNotify{
     int64 Timestamp=3;
     FiberState State=4;
     float ChannelLength=5;
+    float ShowLength=6;
 }
 
 //警报事件
@@ -65,7 +66,8 @@ message AlarmEventNotify{
    int32 ChannelID=1;
    string DeviceID=2;
    int64 Timestamp=3;
-   repeated AlarmEvent Alarms=4;
+   float ShowLength=4;
+   repeated AlarmEvent Alarms=5;
 }
 
 
